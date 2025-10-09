@@ -39,7 +39,6 @@ public class ClientePersistenciaABR {
 			
 		} catch (SQLException e) {
 			System.out.println("Error al conectar a la Base de Datos: " + e.getMessage());
-
 		}
         return idReturn;
     }
@@ -47,6 +46,23 @@ public class ClientePersistenciaABR {
     public static String leerCliente(int idCliente, String campo){
         //DEVUELVE EL VALOR DE LA COLUMNA "CAMPO" DEL CLIENTE IDENTIFICADO POR IDCLIENTE
         String campoReturn = "";
+        try {
+		    Connection con = GestorConexiones.getMySQL_Connection("hotel");
+			Statement st = con.createStatement();
+			String query = "SELECT " + campo + " from clienteabr where id = "+idCliente;
+			ResultSet rs = st.executeQuery(query);
+			
+			while (rs.next()) {
+				campoReturn = rs.getString(campo);	
+			}
+			
+			rs.close();
+			st.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Error al conectar a la Base de Datos: " + e.getMessage());
+		}
         return campoReturn;
     }
 
