@@ -69,12 +69,58 @@ public class ClientePersistenciaABR {
     public static boolean actualizarCliente(int idCliente, String campo, String nuevoValor){
         //ACTUALIZA EL VALOR DE LA COLUMNA "CAMPO" DEL CLIENTE IDENTIFICADO POR idCliente. DEVUELVE TRUE SI SE HA LOGRADO ACTUALIZAR.
         boolean update = false;
+        try {
+		    Connection con = GestorConexiones.getMySQL_Connection("hotel");
+			Statement st = con.createStatement();
+			String query = "UPDATE clienteabr SET " + campo + " = ? WHERE id = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, nuevoValor);
+			preparedStatement.setInt(2, idCliente);
+			
+
+			int filasActualizadas = preparedStatement.executeUpdate();
+
+			if (filasActualizadas > 0) {
+                update = true;
+			} else {
+                update = false;
+			}
+
+            preparedStatement.close();
+			st.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Error al conectar a la Base de Datos: " + e.getMessage());
+		}
         return update;
     }
     
     public static boolean eliminarCliente(int idCliente){
         //ELIMINA EL CLIENTE IDENTIFICADO POR idCliente. DEVUELVE TRUE SI SE HA LOGRADO ELIMINADO.
         boolean delete = false;
+        try {
+		    Connection con = GestorConexiones.getMySQL_Connection("hotel");
+			Statement st = con.createStatement();
+			String query = "delete from clienteabr WHERE id = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+			preparedStatement.setInt(1, idCliente);
+			
+			int filasActualizadas = preparedStatement.executeUpdate();
+
+			if (filasActualizadas > 0) {
+                delete = true;
+			} else {
+                delete = false;
+			}
+
+            preparedStatement.close();
+			st.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Error al conectar a la Base de Datos: " + e.getMessage());
+		}
         return delete;
     }
 }
