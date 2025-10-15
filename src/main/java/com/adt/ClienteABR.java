@@ -1,6 +1,7 @@
 package com.adt;
 
 public class ClienteABR {
+    //En esta clase POJO creamos nuestros atributos, constructores y setters + getters
     private int idCliente;
     private String nombre;
     private String apellidos;

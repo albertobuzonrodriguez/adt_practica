@@ -3,6 +3,8 @@ package com.adt;
 import java.sql.*;
 
 public class GestorConexiones {
+	//Este método lo llamaremos constantemente para conectarnos a la base de datos.
+	
     public static Connection getMySQL_Connection(String database) {
 		final String DRIVER = "org.mariadb.jdbc.Driver";
 		final String URL = "jdbc:mariadb://localhost:3306/"+database;

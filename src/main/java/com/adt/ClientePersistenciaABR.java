@@ -3,6 +3,8 @@ package com.adt;
 import java.sql.*;
 
 public class ClientePersistenciaABR {
+    //En esta clase tenemos desarrollados los métodos que usaremos con los clientes de la base de datos.
+    
     public static int crearCliente(String nombre, String apellidos, String email, String dni, String clave){
         //DEVUELVE EL ID DEL NUEVO CLIENTE
         int idReturn = 0;
